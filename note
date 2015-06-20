@@ -1336,4 +1336,15 @@ a)ssh-keygen生成RSA公私钥对 :执行ssh-keygen，它会交互式的让你�
 b)secureCRT生成公私钥对 :公钥放入sshd服务器，并使用ssh-keygen -i -f 公钥文件 >> ~/.ssh/authorized_keys 格式化公钥格式为UNIX格式，将其放入服务器端公钥认证文件中。
 2，私钥存在.ssh/id_rsa上，secureCRT登录会指定私钥位置。
 
+/proc/meminfo中
+buffer+cached是文件系统高速缓存。tmpfs是基于高速缓存的文件系统，是共享内存底层实现方式，它所占用的内存也是shmem。
+LRU表，一张L表记录最近未使用的内存页，R表记录最近使用过的内存页。当L表页被访问移动到R表，R表中的也一段时间未访问移到L表。
 
+进程
+fork exec模式
+fork克隆出来一个进程，fork返回-1失败，+为父进程，返回值为子进程pid，0为子进程。其中子进程进程名等和父进程完全一致。
+exec将自己的代码区等替换成指定代码区，会改变进程名等。
+linux启动进入init进程.mig让用户输入用户名，mig进程fork exec到login进程，mig进程本身wait login进程，login进程验证密码后exec到/bin/bash进程，bash进程输出命令行让用户输入。
+输入命令后，bashfork exec相应进程后wait。用&符号bashfork exec进程后输出命令行。bash执行exit命令，将结束自身进程，并给自己所有子进程输出hup信号，子进程均退出，父进程mig收到chld信号结束，init进程收到chld信号。
+nohup命令使得bash退出时不发送hup信号给该进程
+screen使mig和bash在退出后一直存在
