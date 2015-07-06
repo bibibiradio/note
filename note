@@ -1348,3 +1348,5 @@ linux启动进入init进程.mig让用户输入用户名，mig进程fork exec到l
 输入命令后，bashfork exec相应进程后wait。用&符号bashfork exec进程后输出命令行。bash执行exit命令，将结束自身进程，并给自己所有子进程输出hup信号，子进程均退出，父进程mig收到chld信号结束，init进程收到chld信号。
 nohup命令使得bash退出时不发送hup信号给该进程
 screen使mig和bash在退出后一直存在
+
+java从子类强制类型转换到父类极耗性能。
